@@ -6,6 +6,7 @@
 \usepackage{multimedia}
 \usepackage{transparent}
 \usetikzlibrary{calc}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % absolute positioning of typeset material    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,7 +45,7 @@
 \author{Donovan Webb}
 \institute{eBIC/University of Bath}
 \titlegraphic{\includegraphics[width=3cm]{Diamond.png}}
-\title{Title}
+\title{Classification and Reconstruction from Single Lines}
 
 \AtBeginSection[]{
   \begin{frame}
@@ -69,15 +70,20 @@
   \tableofcontents[sectionstyle=show/show, hideallsubsections]
 \end{frame}
 
-\section{Section1}
-\subsection{}
-\begin{frame}[blank]
+\section{Single Lines}
+\subsection{Sinograms}
+\begin{frame}[blank]{What is a Sinogram?}
+  Image of sinogram, animation of how sinogram is made
 \end{frame}
 
-\begin{frame}[blank]{Slide1-1}
+\begin{frame}[blank]{Common Lines}
+  Explain why common lines between two 2D projections of the same 3D object will share a common line
+  Show that sharing a common line gives tilt axis.
 \end{frame}
 
-\begin{frame}[fragile]{Slide1-2}
+\begin{frame}[fragile]{Detour! Angular recovery from 3 Common lines}
+  Show how to recover angles from 3 common lines.
+  c.f will this work for more than 3
   % Graphic
   % \begin{center}\includegraphics[width=0.6\textwidth]{grid.png}
   %   \end{center}
@@ -86,37 +92,77 @@
     \item List a
     \item List b
     \end{itemize}
-
 \end{frame}
 
-\section{Section2}
-\subsection{}
-\begin{frame}[fragile]{Slide2-1}
+\begin{frame}[blank]{Comparing single lines}
+  Show different methods. Cross correlation, show single line as signal
+  Problems! translation, noise, ctf...
+\end{frame}
+
+\begin{frame}[blank]{Detour2! crYOLO}
+  Particle picking improvements mean no longer have to rely on 2D classes to get sinograms from...
+  Good centering, only particles being picked.
+  Extensive use at eBIC will touch at the end...
+\end{frame}
+
+
+
+\section{Finding Common Lines}
+\subsection{Nearest Neighbour}
+\begin{frame}[fragile]{Raw single lines}
+  Procedure for finding common lines. Get euclidian distances. Smallest is most similar
 
   \placetextbox[north west]{0.37}{0.33}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{absolute position1}}
   \placetextbox[north west]{0.77}{0.33}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{absolute postion 2}}
 
 \end{frame}
 
-
-
-\begin{frame}[fragile]{Slide2-2}
+\begin{frame}[fragile]{PCA}
+  Dimensional reduction can be used to lower influence of noise and try to find common features of data.
   % Movie
   % \placetextbox[north west]{0.083}{0.30}{\movie[width=3.5cm,height=2cm,poster, externalviewer, loop]{\includegraphics[width=3.5cm]{movie_still.png}}{movie.webm}}
 \end{frame}
 
-\section{Section3}
-\subsection*{}
-\begin{frame}[fragile]{Slide3-1}
+\begin{frame}[fragile]{Non-Linear}
+  Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
 \end{frame}
 
-\begin{frame}[fragile]{Slide3-2}
+\section{Reconstruction}
+\subsection*{Too many Lines}
+\begin{frame}[fragile]{Voting}
+  For each common line between two sinograms get more than 1 match so... vote which is best!
+\end{frame}
+
+\begin{frame}[fragile]{Over determined system}
+  3 lines is all good for getting angular information back c.f. prev slide.
+  any more than 3 and we can get contradicting equations - system is overdetermined. we have N\^2 linear equations and only 6N variables (do proper maths)
+  Machine learning 3! how to fit. Least squares optimization not good as we have large number of misidentified lines and nonconvex! we also need to get proper rotation matrices at the end. This constraint leads to collapse to trivial solution 000. Need other approach.
+\end{frame}
+
+\begin{frame}[fragile]{Eigenvector Relaxation}
+  Explain in simple-ish terms Singer Shkolnisky method for finding Rotation matrices for each projection.
+  Made in python! Using common lines in sinograms instead of in fourier. Maybe explain relationship between two. 
+  Show their results of how no. of correct common lines affect final result.
+\end{frame}
+
+\begin{frame}[fragile]{Models!}
+  Lots of models!
+\end{frame}
+
+\begin{frame}[fragile]{Computational efficiency}
+  only calculating 95\% of correct lines make others random. 6x speed increase. Parrallelisation needed!
+  Show that adding random lines does not affect recon too much..
+\end{frame}
+
+\begin{frame}[fragile]{Priming matrix with tilt data! - Not done yet}
+  With tilt data we know the tilt axis (and angle but this is not important)
+  Can calculate what common single line would be for this data would be. can input straight into matrix
 \end{frame}
 
 
-\section{Section4}
+\section{Clustering - Not done yet}
 \subsection{}
-\begin{frame}{Slide4-1}
+\begin{frame}{Can heterogenaity be sorted by looking at common lines?}
  % Columns/transparancy and slide animations
 \begin{columns}
 \begin{column}{.5\textwidth}
