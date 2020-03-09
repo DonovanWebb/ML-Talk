@@ -1,0 +1,272 @@
+\documentclass[t, 11pt]{beamer}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{multimedia}
+\usepackage{transparent}
+\usetikzlibrary{calc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% absolute positioning of typeset material    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\placetextbox}[4][center]{%
+  % [#1]: box anchor: center (default) | 
+  %                 south west | west | north west | north |
+  %                 north east | east | south east | south | 
+  %                 mid west | mid | mid east |
+  %                 base west | base | base east 
+  % #2: horizontal position (fraction of page width)
+  % #3: vertical position (fraction of page height)
+  % #4: content
+  %
+  \tikz[remember picture,overlay,x=\paperwidth,y=\paperheight]{%
+    \node[anchor=#1,inner sep=0pt]
+    at ($(current page.south west)+(#2,#3)$) {#4};
+  }%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \usetheme{Madrid}
+\usetheme{Berlin}
+
+\def\liketitle#1{%
+{\usebeamerfont{frametitle}\usebeamercolor[fg]{structure}%
+\begin{flushleft}%
+\vspace{-\baselineskip}% Cometic correction for space introduced by flushleft
+#1\par
+\end{flushleft}%
+\vspace{-\baselineskip}% Cosmetic correction for space introduced by flushleft
+}%
+\vspace{0.75\baselineskip}%
+}
+
+\date{January 16th, 2020}
+\author{Donovan Webb}
+\institute{University of Bath/eBIC}
+\titlegraphic{\includegraphics[width=3cm]{Diamond.png}}
+\title{Placement Visit}
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=false,rounded=false]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\begin{document}
+
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+  \maketitle
+\end{frame}
+\addtocounter{framenumber}{-1} % Don't count title slide
+
+\begin{frame}{Table of Contents}
+  \tableofcontents[sectionstyle=show/show, hideallsubsections]
+\end{frame}
+
+\section{What is Cryo-EM?}
+\subsection{}
+\begin{frame}[blank]
+  \centering\vspace{1em}\Huge \[\underbracket{\text{Cryo}}_{\text{\large In Ice}}\text{-}\underbracket{\vphantom{\text{y}}\text{Electron}}_{\text{\parbox{4em}{\centering\normalsize Electrons can have shorter wavelength than light}}} \underbracket{\text{Microscopy}}_{\text{\large Its a Microscope!}} \]
+\end{frame}
+
+\begin{frame}[blank]{The Microscope}
+  \vspace{-0.5em}
+  \includegraphics[width=\textwidth]{temVsoptical.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{The Sample}
+  \begin{center}\includegraphics[width=0.6\textwidth]{grid.png}
+    \end{center}
+
+    \begin{itemize}
+    \item Sample must be thin so electrons can pass through AND to rapidly freeze.
+    \item Ice must be vitreous (amorphic). Crystalline ice interacts strongly with electrons.
+    \end{itemize}
+
+    \tiny Costa, Tiago \& Ignatiou, Athanasios \& Orlova, E.V.. (2017). Structural Analysis of Protein Complexes by Cryo Electron Microscopy. 10.1007/978-1-4939-7033-9\_28. 
+\end{frame}
+
+\begin{frame}[fragile]{The Images}
+  \vspace{-1.2em}
+  \begin{center}\includegraphics[width=0.625\textwidth, height=0.625\textwidth]{betagal_good.png}
+    \end{center}
+\end{frame}
+\begin{frame}[fragile]{The Images (More Realistic)}
+  \vspace{-1.2em}
+  \begin{center}\includegraphics[width=0.625\textwidth, height=0.625\textwidth]{10281_hard.png}
+    \end{center}
+\end{frame}
+
+\section{Single Particle Analysis}
+\subsection{}
+\begin{frame}[fragile]{The Data}
+
+  \placetextbox[north west]{0.03}{0.75}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{\includegraphics[width=0.3\textwidth, height=0.3\textwidth]{10281_hard.png}}}
+  \placetextbox[north west]{0.04}{0.73}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{\includegraphics[width=0.3\textwidth, height=0.3\textwidth]{10281_hard.png}}}
+  \placetextbox[north west]{0.05}{0.71}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{\includegraphics[width=0.3\textwidth, height=0.3\textwidth]{10281_hard.png}}}
+  \placetextbox[north west]{0.06}{0.69}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{\includegraphics[width=0.3\textwidth, height=0.3\textwidth]{10281_hard.png}}}
+  \placetextbox[north west]{0.07}{0.67}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{\includegraphics[width=0.3\textwidth, height=0.3\textwidth]{10281_hard.png}}}
+
+  \placetextbox[north west]{0.40}{0.72}{\parbox{0.6\textwidth}{3D reconstruction can be made from many (many) projections of single particles at different orientations.}}
+  \placetextbox[north west]{0.40}{0.50}{\parbox{0.6\textwidth}{If different orientations are present then angular information can be retrieved.}}
+
+  \placetextbox[north west]{0.37}{0.33}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{\includegraphics[width=0.2\textwidth, height=0.2\textwidth]{repro_1.png}}}
+  \placetextbox[north west]{0.57}{0.33}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{\includegraphics[width=0.2\textwidth, height=0.2\textwidth]{repro_2.png}}}
+  \placetextbox[north west]{0.77}{0.33}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{\includegraphics[width=0.2\textwidth, height=0.2\textwidth]{repro_3.png}}}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{The Pipeline relion\_it}
+  
+
+  \placetextbox[north west]{0.07}{0.77}{\includegraphics[width=0.35\textwidth]{relion.png}}
+  \placetextbox[north west]{0.54}{0.77}{\textit{From Movies to Model}}
+  \placetextbox[north west]{0.083}{0.30}{\movie[width=3.5cm,height=2cm,poster, externalviewer, loop]{\includegraphics[width=3.5cm]{movie_still.png}}{movie.webm}}
+  \placetextbox[north west]{0.41}{0.72}{\includegraphics[width=0.6\textwidth]{pipeline.png}}
+  \only<2>{\begin{tikzpicture}[remember picture,overlay]
+    \node[xshift=71.8mm,yshift=-43.25mm,anchor=north west] at (current page.north west){%
+    \includegraphics[width=22mm, height=8mm]{circle.png}};
+\end{tikzpicture}}
+\end{frame}
+
+\section{My Project}
+\subsection*{}
+\begin{frame}[fragile]{Particle Picking}
+ \large Ways to pick objects from noisy data \\
+ \vspace{0.2em}
+ \normalsize
+  \begin{itemize}
+    \item Laplacian of Gaussian
+    \begin{itemize}
+        \item[--] ``Blob Detector'' used in relion\_it
+    \end{itemize}
+    \item Template Matching
+    \begin{itemize}
+        \item[--] Bias to chosen 2D/3D classes
+    \end{itemize}
+    \item Deep Learning
+    \begin{itemize}
+        \item[--] Difficult to generalise but more selective!
+    \end{itemize}
+  \end{itemize}
+
+  \begin{center}
+    \begin{figure}
+      \tiny
+    \includegraphics[width=0.68\textwidth]{yolo.png}
+    \caption{YOLO Convolutional Architecture}
+    \end{figure}
+    \tiny YOLOv3: An Incremental Improvement. Redmon, Josheph and Farhadi, Ali, 2018
+    \placetextbox[north west]{0.675}{0.77}{\includegraphics[width=0.37\textwidth, height=0.37\textwidth]{prot_blank.png}}
+    \only<2>{\placetextbox[north west]{0.675}{0.77}{\includegraphics[width=0.37\textwidth, height=0.37\textwidth]{prot_cry.png}}}
+  \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{crYOLO with General Model}
+    \only<1>{\includegraphics[width=0.50\textwidth]{prot_blank.png}}
+    \only<1>{\includegraphics[width=0.50\textwidth]{prot_blank.png}}
+    \only<2>{\includegraphics[width=0.50\textwidth]{prot_rel.png}}
+    \only<2>{\includegraphics[width=0.50\textwidth]{prot_cry.png}}
+    \placetextbox[north west]{0.25}{0.15}{LoG}
+    \placetextbox[north west]{0.66}{0.15}{crYOLO}
+\end{frame}
+
+\begin{frame}[fragile]{On The Fly}
+  \textit{Automated data processing during collection}
+  \begin{itemize}
+    \item Implemented crYOLO instead of LoG as picker for relion\_it OTF 
+    \begin{itemize}\item[--] More accurate. Leads to good classes faster \end{itemize}
+    \item Updated relion\_it to python 3 as well as adding features requested
+    \item Packaged OTF script and available on pypi
+    \item New OTF data collection has now been run on many sessions (\textgreater80) 
+    \begin{itemize}\item[--] Many examples of crYOLO to assess performance \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Current and Planned Work}
+  \begin{itemize}
+    \item Looking at possible improvements to when crYOLO performed badly
+    \item Establishing a retraining loop for crYOLO model
+    \item Testing how prefiltering data affects crYOLO 
+    \item Exploring picking and reconstruction from tilt pairs
+    \item Exploring picking from tomography data
+  \end{itemize}
+  \movie[width=2cm,height=2cm,poster, externalviewer, loop]{\includegraphics[width=2cm]{tilt_still.png}}{tilt.gif} \\ 
+  \tiny Martin Pilhofer and Grant Jensen/HHMI/Janelia Research Campus
+\end{frame}
+
+\section{Training}
+\subsection*{}
+\begin{frame}[fragile]{Programming}
+  \textbf{Python}
+  \begin{itemize}
+    \item Programming guidance from co-supervisor
+    \item Learnt how to package a python program (relion-yolo-it on pypi)
+    \item Completed a 3 day course on Python for Data Analysis 
+  \end{itemize}
+  \vspace{1em}
+
+  \textbf{Machine Learning}
+  \begin{itemize}
+    \item Attended ML for cryo-EM workshop in September. Another in March
+    \item Fortnightly meetings with CCPEM/SciML to discuss ML
+    \item Attend SciML lectures at Harwell
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Cryo-EM}
+  \begin{itemize}
+    \item Completed a tutorial on Relion reaching a 3~\AA~resolution on Beta-gal
+    \item Working understanding of cryo-EM workflow and software used to analyse data
+    \item Lots of time spent manipulating cryo-EM data
+    \item Began training in sample preparation and microscope operation
+  \end{itemize}
+  \placetextbox[north west]{0.36}{0.35}{\movie[width=3.5cm,height=2cm,poster, externalviewer, loop]{\includegraphics[width=3.5cm]{movie_still.png}}{movie.webm}}
+\end{frame}
+
+\section{University}
+\subsection{}
+
+\begin{frame}{University and Placement}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\liketitle{\only<2>{\transparent{0.4}}~~What I brought}
+  \begin{itemize}
+  \only<2>{\transparent{0.4}}
+    \vspace{1.2em}
+    \item[\only<2>{\transparent{0.4}}{\textbullet}] Knowing how to learn independently
+    \vspace{1em}
+    \item[\only<2>{\transparent{0.4}}{\textbullet}] Problem solving
+    \vspace{1em}
+    \item[\only<2>{\transparent{0.4}}{\textbullet}] Critical reading of theory
+    \vspace{1em}
+    \item[\only<2>{\transparent{0.4}}{\textbullet}] Fourier analysis
+  \end{itemize} 
+\end{column}
+\begin{column}{.5\textwidth}
+\liketitle{\only<1>{\transparent{0.4}}~What I will take back}
+  \begin{itemize}
+\only<1>{\transparent{0.4}}
+    \vspace{0.7em}
+    \item[\only<1>{\transparent{0.4}}{\textbullet}] Greatly improved programming skill and knowledge
+    \vspace{0.7em}
+    \item[\only<1>{\transparent{0.4}}{\textbullet}] Knowledge and experience in applying ML
+    \vspace{0.7em}
+    \item[\only<1>{\transparent{0.4}}{\textbullet}] Understanding of how research is conducted
+    \vspace{0.7em}
+    \item[\only<1>{\transparent{0.4}}{\textbullet}] Data Analysis techniques!
+  \end{itemize} 
+\end{column}
+\end{columns}
+\end{frame}
+
+\end{document}
