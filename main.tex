@@ -8,6 +8,27 @@
 \usetikzlibrary{calc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Useful things
+
+% list
+%% \begin{itemize}
+%% \item List a
+%% \item List b
+%% \end{itemize}
+
+% image
+%% \begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_3_comp.png}
+%% \end{center}
+
+% absolute position
+%% \placetextbox[north west]{0.37}{0.33}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{absolute position1}}
+%% \placetextbox[north west]{0.77}{0.33}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{absolute postion 2}}
+
+% movie
+%% \placetextbox[north west]{0.083}{0.30}{\movie[width=3.5cm,height=2cm,poster, externalviewer, loop]{\includegraphics[width=3.5cm]{movie_still.png}}{movie.webm}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % absolute positioning of typeset material    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\placetextbox}[4][center]{%
@@ -70,71 +91,71 @@
   \tableofcontents[sectionstyle=show/show, hideallsubsections]
 \end{frame}
 
+
 \section{Single Lines}
 \subsection{Sinograms}
-\begin{frame}[blank]{What is a Sinogram?}
+
+\begin{frame}[fragile]{The Radon Transform}
   Image of sinogram, animation of how sinogram is made
 \end{frame}
 
-\begin{frame}[blank]{Common Lines}
+\begin{frame}[fragile]{Common Lines}
   Explain why common lines between two 2D projections of the same 3D object will share a common line
   Show that sharing a common line gives tilt axis.
+
+  \textbf{Two projections of the same 3D volume share at least one common line in the Radon transform}
 \end{frame}
 
 \begin{frame}[fragile]{Detour! Angular recovery from 3 Common lines}
-  Show how to recover angles from 3 common lines.
-  c.f will this work for more than 3
-  % Graphic
-  % \begin{center}\includegraphics[width=0.6\textwidth]{grid.png}
-  %   \end{center}
-
-    \begin{itemize}
-    \item List a
-    \item List b
-    \end{itemize}
+  \textit{\tiny{From Van Heel Paper}}
+  Show how to recover angles from 3 common lines. Maths!
+  c.f will this work for more than 3? see slide X
+  \begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_3_comp.png}
+    \end{center}
 \end{frame}
 
-\begin{frame}[blank]{Comparing single lines}
-  Show different methods. Cross correlation, show single line as signal
+\begin{frame}[fragile]{Comparing single lines}
+  Show different methods.
+  Cross correlation,
+  show single line as signal
   Problems! translation, noise, ctf...
 \end{frame}
 
-\begin{frame}[blank]{Detour2! crYOLO}
+\begin{frame}[fragile]{Detour2! crYOLO}
   Particle picking improvements mean no longer have to rely on 2D classes to get sinograms from...
   Good centering, only particles being picked.
   Extensive use at eBIC will touch at the end...
 \end{frame}
 
 
-
 \section{Finding Common Lines}
-\subsection{Nearest Neighbour}
+\subsection*{Nearest Neighbour}
+
 \begin{frame}[fragile]{Raw single lines}
   Procedure for finding common lines. Get euclidian distances. Smallest is most similar
-
-  \placetextbox[north west]{0.37}{0.33}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{absolute position1}}
-  \placetextbox[north west]{0.77}{0.33}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\fbox{absolute postion 2}}
-
 \end{frame}
 
-\begin{frame}[fragile]{PCA}
+\begin{frame}[fragile]{Dimensional Reduction}
   Dimensional reduction can be used to lower influence of noise and try to find common features of data.
-  % Movie
-  % \placetextbox[north west]{0.083}{0.30}{\movie[width=3.5cm,height=2cm,poster, externalviewer, loop]{\includegraphics[width=3.5cm]{movie_still.png}}{movie.webm}}
+  Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
+  Plot 2D pca of sinogram
+  and non-linear Iso map or lle
 \end{frame}
 
-\begin{frame}[fragile]{Non-Linear}
-  Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
-  Could we use NN to find filters? Number of attempts but nothing stable as yet.
+\begin{frame}[fragile]{Comparison between linear and non-linear dimensions}
+  Graph of how lin vs non-lin change for different noise levels and different number of components
 \end{frame}
 
 \begin{frame}[fragile]{Bonus slide: NN architecture for comparing single lines}
+  Could we use NN to find filters? Number of attempts but nothing stable as yet.
   Probably leave out as unsuccesful and long to explain - could do a passing mention
 \end{frame}
 
 \section{Reconstruction}
 \subsection*{Too many Lines}
 \begin{frame}[fragile]{Voting}
+  Take all lines pairs under distance X
+  This gives multiple possible axis between the same two projections. Weight these according to distance and number of times they appear.
   For each common line between two sinograms get more than 1 match so... vote which is best!
 \end{frame}
 
