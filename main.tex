@@ -96,9 +96,18 @@
 \subsection{Sinograms}
 
 \begin{frame}[fragile]{The Radon Transform}
-  Image of sinogram, animation of how sinogram is made
-  \begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_Proj1.png}
-    \end{center}
+ \only<1>{\begin{center}\includegraphics[width=0.65\textwidth]{images/Sinogram_Proj1.png}
+    \end{center}}
+\vspace{-1em}
+ \only<2>{\begin{center}\includegraphics[width=0.85\textwidth]{images/sino_ani/sino_make_fr1.png}
+    \end{center}}
+ \only<3>{\begin{center}\includegraphics[width=0.85\textwidth]{images/sino_ani/sino_make_fr2.png}
+    \end{center}}
+ \only<4>{\begin{center}\includegraphics[width=0.85\textwidth]{images/sino_ani/sino_make_fr3.png}
+    \end{center}}
+ \only<5>{\begin{center}\includegraphics[width=0.85\textwidth]{images/sino_ani/sino_make_fr4.png}
+    \end{center}}
+
 \end{frame}
 
 \begin{frame}[fragile]{Common Lines}
@@ -109,7 +118,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Detour! Angular recovery from 3 Common lines}
-  \textit{\tiny{From Van Heel Paper}}
+  \textit{\tiny{Angular Reconstitution: A Posteriori Assignment of Projection Directions for 3d Reconstruction. Van Heel 1987}}
   Show how to recover angles from 3 common lines. Maths!
   c.f will this work for more than 3? see slide X
   \begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_3_comp.png}
