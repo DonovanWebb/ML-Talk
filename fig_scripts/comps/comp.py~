@@ -1,0 +1,24 @@
+import mrcfile as mrc
+import matplotlib.pyplot as plt
+import numpy as np
+from skimage.transform import radon, rescale
+
+
+
+m0 = '0_0.mrcs'
+m1 = '0_1.mrcs'
+with mrc.open(m0) as f:
+    im0 = f.data
+with mrc.open(m1) as f:
+    im1 = f.data
+
+def sino(im):
+    theta = np.linspace(0., 360., 360, endpoint=False)
+    sinogram = radon(im, theta=theta, circle=True)
+    return sinogram
+
+sin0 = sino(im0)
+sin1 = sino(im1)
+
+plt.plot(sin0[20])
+plt.show()

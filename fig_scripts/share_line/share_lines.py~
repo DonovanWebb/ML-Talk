@@ -1,0 +1,17 @@
+import mrcfile as mrc
+import matplotlib.pyplot as plt
+import numpy as np
+
+m0 = '0_0.mrcs'
+m1 = '0_1.mrcs'
+m2 = '0_2.mrcs'
+m3 = '0_3.mrcs'
+m4 = '0_4.mrcs'
+ms = [m0,m1,m2,m3,m4]
+ims = np.array([])
+for m in ms:
+    with mrc.open(m) as f:
+        im = f.data
+        ims = np.append(ims,im)
+print(ims.shape)
+    
