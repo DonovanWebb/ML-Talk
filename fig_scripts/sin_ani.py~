@@ -1,0 +1,58 @@
+import mrcfile
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import numpy as np
+
+im1 = 'NN/proj_5angles/i0/0.mrc'
+with mrc.open(im1) as f:
+    img1 = f.data
+    
+
+gridspec.GridSpec(5,3)
+
+# Arrows
+plt.subplot2grid((3,5), (0,0))
+plt.imshow(matxz)
+plt.axis('off')
+
+plt.subplot2grid((3,5), (0,1))
+plt.imshow(matxy)
+plt.axis('off')
+
+plt.subplot2grid((3,5), (0,2))
+plt.imshow(matyz)
+plt.axis('off')
+
+plt.subplot2grid((3,5), (1,0))
+plt.imshow(sin1.T)
+plt.axis('off')
+
+plt.subplot2grid((3,5), (1,2))
+plt.imshow(sin3)
+plt.axis('off')
+
+plt.subplot2grid((3,5), (2,0))
+plt.imshow(sin2)
+plt.axis('off')
+
+plt.subplot2grid((3,5), (2,1))
+plt.imshow(sin2.T)
+plt.axis('off')
+
+plt.subplot2grid((3,5), (2,2))
+plt.imshow(matyy)
+plt.axis('off')
+
+# 2D proj
+plt.subplot2grid((3,5), (1,1))
+plt.imshow(matyy)
+plt.axis('off')
+
+# Sino
+plt.subplot2grid((3,5), (1,2), colspan=2)
+plt.imshow(matyy)
+plt.axis('off')
+
+
+
+plt.show()
