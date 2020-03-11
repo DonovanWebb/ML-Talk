@@ -1,4 +1,5 @@
 \documentclass[t, 11pt]{beamer}
+\usepackage{textcomp}
 \usepackage{mathtools}
 \usepackage{pdfpages}
 \usepackage{graphicx}
@@ -132,31 +133,52 @@
   Three common lines gives 2 unique solutions for 3D orientation (One mirror of other)
   \only<1>{\begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_3_comp.png}
     \end{center}}
-  \only<2>{\begin{center}\includegraphics[width=0.801\textwidth]{images/vectors.png}
+  \only<2->{\begin{center}\includegraphics[width=0.801\textwidth]{images/vectors.png}
     \end{center}}
   \textit{\tiny{Angular Reconstitution: A Posteriori Assignment of Projection Directions for 3d Reconstruction. Van Heel 1987}}
+  \only<3>{\placetextbox[north west]{0.34}{0.63}{\includegraphics[width=0.4\linewidth]{images/3_line_model.png}}}
 \end{frame}
 
 
-\begin{frame}[fragile]{Detour2! crYOLO}
-  Particle picking improvements mean no longer have to rely on 2D classes to get sinograms from...
-  Good centering, only particles being picked.
-  Extensive use at eBIC will touch at the end...
-\end{frame}
+% \begin{frame}[fragile]{Detour2! crYOLO}
+%   Particle picking improvements mean no longer have to rely on 2D classes to get sinograms from...
+%   Good centering, only particles being picked.
+%   Extensive use at eBIC will touch at the end...
+% \end{frame}
 
 
 \section{Finding Common Lines}
+
+\begin{frame}[fragile]{Challenges}
+    \begin{itemize}
+    \item Noise
+    \item CTF
+    \item Heterogenaity
+    \item Impurities
+    \end{itemize}
+\end{frame}
+
 \subsection*{Nearest Neighbour}
 
 \begin{frame}[fragile]{Raw single lines}
-  Procedure for finding common lines. Get euclidian distances. Smallest is most similar
+  Procedure for finding common lines: \\
+    \begin{itemize}
+    \item Projections \textrightarrow{} Sinograms
+    \item Sinograms \textrightarrow{} Single Lines
+    \item Find Euclidean Distances 
+    \item Smallest Distance = Best Match
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Dimensional Reduction}
-  Dimensional reduction can be used to lower influence of noise and try to find common features of data.
-  Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
-  Plot 2D pca of sinogram
-  and non-linear Iso map or lle
+  % Dimensional reduction can be used to lower influence of noise and try to find common features of data.
+  % Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
+  % Plot 2D pca of sinogram
+  % and non-linear Iso map or lle
+  PCA\\
+  LLE\\
+  Isomap \\
+
 \end{frame}
 
 \begin{frame}[fragile]{Comparison between linear and non-linear dimensions}
@@ -170,17 +192,25 @@
 
 \section{Reconstruction}
 \subsection*{Too many Lines}
-\begin{frame}[fragile]{Voting}
-  Take all lines pairs under distance X
-  This gives multiple possible axis between the same two projections. Weight these according to distance and number of times they appear.
-  For each common line between two sinograms get more than 1 match so... vote which is best!
-\end{frame}
+% \begin{frame}[fragile]{Voting}
+%   Take all lines pairs under distance X
+%   This gives multiple possible axis between the same two projections. Weight these according to distance and number of times they appear.
+%   For each common line between two sinograms get more than 1 match so... vote which is best!
+% \end{frame}
 
-\begin{frame}[fragile]{Over determined system}
-  3 lines is all good for getting angular information back c.f. prev slide.
-  any more than 3 and we can get contradicting equations - system is overdetermined. we have N\^2 linear equations and only 6N variables (do proper maths)
-  Machine learning 3! how to fit. Least squares optimization not good as we have large number of misidentified lines and nonconvex! we also need to get proper rotation matrices at the end. This constraint leads to collapse to trivial solution 000. Need other approach.
-\end{frame}
+% \begin{frame}[fragile]{Overdetermined system}
+%   % https://www.osapublishing.org/josaa/fulltext.cfm?uri=josaa-9-10-1749&id=64057
+%   3 projections can satisfy geometrical constraints.
+%   Problem when we add a fourth!
+%   R = matrix
+%   need 6 variables per projection.
+%   Each pair of projection gives us 2 variables. 
+%   2 N^2 vs 6N
+%   if N = 3 then we have determined system
+%   3 lines is all good for getting angular information back c.f. prev slide.
+%   any more than 3 and we can get contradicting equations - system is overdetermined. we have N\^2 linear equations and only 6N variables (do proper maths)
+%   Machine learning 3! how to fit. Least squares optimization not good as we have large number of misidentified lines and nonconvex! we also need to get proper rotation matrices at the end. This constraint leads to collapse to trivial solution 000. Need other approach.
+% \end{frame}
 
 \begin{frame}[fragile]{Eigenvector Relaxation}
   \small
@@ -196,9 +226,6 @@
   \vspace{1em}
   \hspace*{-2em}\vbox{$$max\sum_{i\ne j} R_ic_{ij} \cdot R_jc_{ji} \quad (2)$$}
   Maths*! Make large $(2N \times 2N)$ symmetric \\ matrix $S$. Can recover $R$ for each $P$ from \\ top 3 eigenvectors of $S$ that maximise (2)! \\
-  % Explain in simple-ish terms Singer Shkolnisky method for finding Rotation matrices for each projection.
-  % Made in python! Using common lines in sinograms instead of in fourier. Maybe explain relationship between two. 
-  % Show their results of how no. of correct common lines affect final result.
   
   \vspace{2em}
 
