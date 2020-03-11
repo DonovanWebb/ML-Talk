@@ -96,7 +96,7 @@
 \subsection{Sinograms}
 
 \begin{frame}[fragile]{The Radon Transform}
- \only<1>{\begin{center}\includegraphics[width=0.65\textwidth]{images/Sinogram_Proj1.png}
+ \only<1>{\begin{center}\includegraphics[width=0.9\textwidth]{images/Sinogram_Proj1.png}
     \end{center}}
 \vspace{-1em}
  \only<2>{\begin{center}\includegraphics[width=0.85\textwidth]{images/sino_ani/sino_make_fr1.png}
@@ -120,19 +120,21 @@
 
 \end{frame}
 
-\begin{frame}[fragile]{Comparing single lines}
-  Show different methods.
-  Cross correlation,
-  show single line as signal
-  Problems! translation, noise, ctf...
+\begin{frame}[fragile]{Sinogram Cross Correlation}
+  \begin{center}\includegraphics[width=1\textwidth]{images/2sin_comp.png}
+    \end{center}
+  % show single line as signal
+  % Problems! translation, noise, ctf...
 \end{frame}
 
 \begin{frame}[fragile]{Detour! Angular recovery from 3 Common lines}
-  \textit{\tiny{Angular Reconstitution: A Posteriori Assignment of Projection Directions for 3d Reconstruction. Van Heel 1987}}
-  \textbf{Common line gives axis of rotation}
+  \textbf{Common line gives axis of rotation.}
   Three common lines gives 2 unique solutions for 3D orientation (One mirror of other)
-  \begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_3_comp.png}
-    \end{center}
+  \only<1>{\begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_3_comp.png}
+    \end{center}}
+  \only<2>{\begin{center}\includegraphics[width=0.801\textwidth]{images/vectors.png}
+    \end{center}}
+  \textit{\tiny{Angular Reconstitution: A Posteriori Assignment of Projection Directions for 3d Reconstruction. Van Heel 1987}}
 \end{frame}
 
 
@@ -183,21 +185,24 @@
 \begin{frame}[fragile]{Eigenvector Relaxation}
   \small
   \textbf{Aim: Given all common lines $c$ for projections $P$, assign Rotation matrices $R$ for each $P$ to give greatest consensus volume.} \\
-  Image of Radon with angles. Image of FT with angles.\\
-  \includegraphics[width=0.35\textwidth]{images/radon_ft.png}
+  \vspace{0.5em}
+  \includegraphics[width=0.45\textwidth]{images/radon_ft.png}
 \vspace{-3.7em}
-  \hspace{3em}\tiny{$$\hspace{15em}cij~=~(cos(\theta_{ij}),sin(\theta_{ij}),0),~cji~=~(cos(\theta_{ji}),sin(\theta_{ji}),0)~\quad~(1)$$}
+  \hspace*{3.2em}\vbox{\tiny{$$\hspace{15em}cij~=~(cos(\theta_{ij}),sin(\theta_{ij}),0),~cji~=~(cos(\theta_{ji}),sin(\theta_{ji}),0)~\quad~(1)$$}}
 
   \small
-  $$max\sum_{i\ne j} R_ic_{ij} \cdot R_jc_{ji} \quad (2)$$
-  Maths*! Make large $(2N \times 2N)$ symmetric matrix $S$. Can recover $R$ for each $P$ from top 3 eigenvectors of $S$ that maximise (2)! \\
-  Image of eigenvalue histogram
+ \placetextbox[north west]{0.56}{0.45}{
+  \includegraphics[width=0.55\textwidth]{images/eighist.png}} \\
+  \vspace{1em}
+  \hspace*{-2em}\vbox{$$max\sum_{i\ne j} R_ic_{ij} \cdot R_jc_{ji} \quad (2)$$}
+  Maths*! Make large $(2N \times 2N)$ symmetric \\ matrix $S$. Can recover $R$ for each $P$ from \\ top 3 eigenvectors of $S$ that maximise (2)! \\
   % Explain in simple-ish terms Singer Shkolnisky method for finding Rotation matrices for each projection.
   % Made in python! Using common lines in sinograms instead of in fourier. Maybe explain relationship between two. 
   % Show their results of how no. of correct common lines affect final result.
   
+  \vspace{2em}
 
-  \textit{\tiny{*Three Dimensional Structure Determination from Common Lines in Cryo-EM by Eigenvectors and Semidefinite Programming. A.Singer and Y.Shkolnisky}}
+  \textit{\scalebox{0.5}{*Three Dimensional Structure Determination from Common Lines in Cryo-EM by Eigenvectors and Semidefinite Programming. A.Singer and Y.Shkolnisky}}
 \end{frame}
 
 \begin{frame}[fragile]{Models!}
