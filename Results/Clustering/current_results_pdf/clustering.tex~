@@ -1,0 +1,11 @@
+
+\documentclass[t, 11pt]{beamer}
+%% \begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_3_comp.png}
+%% \end{center}
+
+\begin{document}
+
+\begin{center}\includegraphics[width=0.45\textwidth]{../1000_TSNE_4classes.png}
+\end{center}
+
+\end{document}
