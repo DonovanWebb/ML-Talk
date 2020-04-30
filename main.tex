@@ -10,22 +10,6 @@
 \usetikzlibrary{calc}
 \usepackage{amsmath}
 
-\newcounter{eqn}
-\renewcommand*{\theeqn}{\alph{eqn})}
-\newcommand{\num}{\refstepcounter{eqn}\text{\theeqn}\;}
-
-\makeatletter
-\newcommand{\putindeepbox}[2][0.7\baselineskip]{{%
-    \setbox0=\hbox{#2}%
-    \setbox0=\vbox{\noindent\hsize=\wd0\unhbox0}
-    \@tempdima=\dp0
-    \advance\@tempdima by \ht0
-    \advance\@tempdima by -#1\relax
-    \dp0=\@tempdima
-    \ht0=#1\relax
-    \box0
-}}
-\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Useful things
@@ -206,7 +190,8 @@
     Doesn't handle noise well.
 \end{frame}
 
-\begin{frame}[fragile]{Dimensional Reduction}
+\begin{frame}[fragile]{Dimensional Reduction - Linear}
+\only<1>{
   \vspace{-1em}\begin{center}
   \textbf{Find features - Reduce noise} \\
   % Swiss roll explanation? !XXXX
@@ -214,39 +199,54 @@
   % Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
   % and non-linear Iso map or lle !XXXX
   \textbf{Linear} (PCA) \\
-  \includegraphics[width=0.3\textwidth]{images/dimredcomps/PCA_sins.png}
+  \includegraphics[width=0.8\textwidth]{images/dimredcomps/PCA_sins.png}
+  \end{center}}
 
-  \textbf{Non-Linear}  \\
-\begin{tabular}{cc}
-  \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/LLE_sins.png}} 
-  & \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/ISOMAP_sins.png}} \\
-  \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/TSNE_sins.png}}
-  & \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/UMAP_sins.png}} \\
-\end{tabular} \\
-a: LLE, b: ISOMAP, c: TSNE, d: UMAP
-  \end{center}
+\only<2>{
+  \vspace{-1em}\begin{center}
+  \textbf{Find features - Reduce noise} \\
+  % Swiss roll explanation? !XXXX
+  % Dimensional reduction can be used to lower influence of noise and try to find common features of data.
+  % Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
+  % and non-linear Iso map or lle !XXXX
+  \textbf{Linear} (PCA) \\
+  \includegraphics[width=0.8\textwidth]{images/dimredcomps/PCA_gt.png}
+  \end{center}}
 \end{frame}
 
-\setcounter{eqn}{0}
-\begin{frame}[fragile]{Dimensional Reduction - ground truths}
-  \vspace{-1em}\begin{center}
-  \textbf{Find features - Reduce noise} \\
-  % Swiss roll explanation? !XXXX
-  % Dimensional reduction can be used to lower influence of noise and try to find common features of data.
-  % Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
-  % and non-linear Iso map or lle !XXXX
-  \textbf{Linear} (PCA) \\
-  \includegraphics[width=0.3\textwidth]{images/dimredcomps/PCA_gt.png}
-
-  \textbf{Non-Linear}  \\
-\begin{tabular}{cc}
-  \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/LLE_gt.png}} 
-  & \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/ISOMAP_gt.png}} \\
-  \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/TSNE_gt.png}}
-  & \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/UMAP_gt.png}} \\
-\end{tabular} \\
-a: LLE, b: ISOMAP, c: TSNE, d: UMAP
-  \end{center}
+\begin{frame}[fragile]{Dimensional Reduction - Non-Linear} 
+	\only<1>{
+	\begin{center}
+		  \begin{minipage}{0.45\textwidth}
+	          LLE\\
+                  \includegraphics[width=1\textwidth]{images/dimredcomps/LLE_sins.png}\\
+		  ISOMAP\\
+                  \includegraphics[width=1\textwidth]{images/dimredcomps/ISOMAP_sins.png}\\
+		  \end{minipage}
+			~
+		  \begin{minipage}{0.45\textwidth}
+	          UMAP\\
+                  \includegraphics[width=1\textwidth]{images/dimredcomps/UMAP_sins.png}\\
+		  TSNE\\
+                  \includegraphics[width=1\textwidth]{images/dimredcomps/TSNE_sins.png}\\
+		  \end{minipage}
+	\end{center}}
+        \only<2>{
+	\begin{center}
+		  \begin{minipage}{0.45\textwidth}
+	          LLE\\
+                  \includegraphics[width=1\textwidth]{images/dimredcomps/LLE_gt.png}\\
+		  ISOMAP\\
+                  \includegraphics[width=1\textwidth]{images/dimredcomps/ISOMAP_gt.png}\\
+		  \end{minipage}
+			~
+		  \begin{minipage}{0.45\textwidth}
+	          UMAP\\
+                  \includegraphics[width=1\textwidth]{images/dimredcomps/UMAP_gt.png}\\
+		  TSNE\\
+                  \includegraphics[width=1\textwidth]{images/dimredcomps/TSNE_gt.png}\\
+		  \end{minipage}
+	\end{center}}
 \end{frame}
 
 \begin{frame}[fragile]{Pipeline}
