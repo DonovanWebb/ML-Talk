@@ -6,7 +6,26 @@
 \usepackage{tikz}
 \usepackage{multimedia}
 \usepackage{transparent}
+\usepackage{textpos}
 \usetikzlibrary{calc}
+\usepackage{amsmath}
+
+\newcounter{eqn}
+\renewcommand*{\theeqn}{\alph{eqn})}
+\newcommand{\num}{\refstepcounter{eqn}\text{\theeqn}\;}
+
+\makeatletter
+\newcommand{\putindeepbox}[2][0.7\baselineskip]{{%
+    \setbox0=\hbox{#2}%
+    \setbox0=\vbox{\noindent\hsize=\wd0\unhbox0}
+    \@tempdima=\dp0
+    \advance\@tempdima by \ht0
+    \advance\@tempdima by -#1\relax
+    \dp0=\@tempdima
+    \ht0=#1\relax
+    \box0
+}}
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Useful things
@@ -66,12 +85,12 @@
 %% \setbeamercolor{palette secondary}{bg=CLICorange,fg=white}
 %% \setbeamercolor{palette tertiary}{bg=CLICyellow,fg=white}
 %% % \setbeamercolor{palette quaternary}{bg=CLICbrown,fg=white}
-%% \setbeamercolor{structure}{fg=CLICfg} % itemize, enumerate, etc
-%% \setbeamercolor{structure}{bg=CLICbg} % itemize, enumerate, etc
-%% \setbeamercolor{section in toc}{fg=CLICfg} % TOC sections
+\setbeamercolor{structure}{fg=CLICbg} % itemize, enumerate, etc
+\setbeamercolor{structure}{bg=CLICbg} % itemize, enumerate, etc
+\setbeamercolor{section in toc}{fg=CLICbg} % TOC sections
 
 %% % Override palette coloring with secondary
-%% \setbeamercolor{subsection in head/foot}{bg=UBCgrey,fg=white}
+% \setbeamercolor{subsection in head/foot}{bg=UBCgrey,fg=white}
 %% \setbeamercolor{normal text}{bg=CLICfg, fg=CLICfg}
 %% \setbeamercolor{background canvas}{bg=CLICbg}
 
@@ -86,14 +105,11 @@
 }%
 \vspace{0.75\baselineskip}%
 }
-\logo{\makebox[0.7\paperwidth]{\includegraphics[width=1cm,keepaspectratio]{images/Diamond.png}}} % Insert logo !XXXX
-\date{March 23rd, 2020}
+\subtitle{\includegraphics[width=4cm]{images/logo_transparent.png}\\Common Lines Implied Clustering}
 \author{Donovan Webb}
 \institute{eBIC/University of Bath}
+\date{March 23rd, 2020}
 \titlegraphic{\includegraphics[width=3cm]{images/Diamond.png}}
-\titlegraphic{\includegraphics[width=3cm]{images/Diamond.png}} % Insert logo !XXXX
-\title{CLIC}
-\subtitle{Common Lines Implied Clustering}
 
 \AtBeginSection[]{
   \begin{frame}
@@ -106,13 +122,21 @@
   \end{frame}
 }
 
+\addtobeamertemplate{frametitle}{}{%
+\begin{textblock*}{100mm}(.88\textwidth,-1cm)
+\includegraphics[width=2cm, keepaspectratio]{images/logo_transparent.png}
+\end{textblock*}}
+
+
 \begin{document}
 
 \setbeamertemplate{navigation symbols}{}
 \begin{frame}[plain]
+\setbeamercolor{title}{bg=white,fg=CLICbg}
   \maketitle
+\setbeamercolor{title}{bg=CLICbg,fg=CLICfg}
 \end{frame}
-\addtocounter{framenumber}{-1} % Don't count title slide !XXXX
+\addtocounter{framenumber}{-1} % Don't count title slide
 
 \begin{frame}{Table of Contents}
   \tableofcontents[sectionstyle=show/show, hideallsubsections]
@@ -148,10 +172,7 @@
 
 \begin{frame}[fragile]{Common Lines}
   \centering\textbf{What about two different 3D volumes?}
- % Include new figure comparing lines from two models !XXXX
- \begin{center}\includegraphics[width=0.85\textwidth]{images/common_line.png}
-    \end{center}
- \begin{center}\includegraphics[width=0.35\textwidth]{images/3D_model.png}
+ \begin{center}\includegraphics[width=0.85\textwidth]{images/lines_two_models.png}
     \end{center}
 \end{frame}
 
@@ -170,16 +191,13 @@
 
 
 \begin{frame}[fragile]{Pipeline}
-    \begin{itemize}
-    \item Plot each line in high dimensional space % One pixel is one variable
-    \item Find Euclidean Distances 
-    \item Smaller distances mean better agreement
-    \item Best match between two sinograms \textrightarrow{} Common line!
-    \item Best scoring common lines \textrightarrow{} From the same model!
-    \end{itemize}
-    % Make this a flow chart !XXXX
-    % Include graphic of points plotted in 2d space !XXXX
+  \begin{center}\includegraphics[width=1\textwidth]{images/first_pipeline.png}
+    \end{center}
+  
+    \pause
+    \placetextbox[north west]{0}{0.63}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\includegraphics[width=0.7\textwidth]{images/no_dimred.png}}
 
+    \vspace{1em}
     \pause
     Slow.
     \pause
@@ -189,40 +207,51 @@
 \end{frame}
 
 \begin{frame}[fragile]{Dimensional Reduction}
-  \centering\textbf{Find features - Reduce noise}
-
+  \vspace{-1em}\begin{center}
+  \textbf{Find features - Reduce noise} \\
   % Swiss roll explanation? !XXXX
-
   % Dimensional reduction can be used to lower influence of noise and try to find common features of data.
   % Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
-  % Plot 2D pca of sinogram !XXXX
   % and non-linear Iso map or lle !XXXX
-  Linear \\
-  PCA\\
-  % Plot 2D of sinogram !XXXX
+  \textbf{Linear} (PCA) \\
+  \includegraphics[width=0.3\textwidth]{images/dimredcomps/PCA_sins.png}
 
-  Non-Linear \\
-  LLE\\
-  % Plot 2D of sinogram !XXXX
-  Isomap \\
-  % Plot 2D of sinogram !XXXX
-  TSNE\\
-  % Plot 2D of sinogram !XXXX
-  UMAP\\
-  % Plot 2D of sinogram !XXXX
+  \textbf{Non-Linear}  \\
+\begin{tabular}{cc}
+  \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/LLE_sins.png}} 
+  & \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/ISOMAP_sins.png}} \\
+  \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/TSNE_sins.png}}
+  & \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/UMAP_sins.png}} \\
+\end{tabular} \\
+a: LLE, b: ISOMAP, c: TSNE, d: UMAP
+  \end{center}
+\end{frame}
 
+\setcounter{eqn}{0}
+\begin{frame}[fragile]{Dimensional Reduction - ground truths}
+  \vspace{-1em}\begin{center}
+  \textbf{Find features - Reduce noise} \\
+  % Swiss roll explanation? !XXXX
+  % Dimensional reduction can be used to lower influence of noise and try to find common features of data.
+  % Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
+  % and non-linear Iso map or lle !XXXX
+  \textbf{Linear} (PCA) \\
+  \includegraphics[width=0.3\textwidth]{images/dimredcomps/PCA_gt.png}
+
+  \textbf{Non-Linear}  \\
+\begin{tabular}{cc}
+  \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/LLE_gt.png}} 
+  & \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/ISOMAP_gt.png}} \\
+  \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/TSNE_gt.png}}
+  & \num\putindeepbox[7pt]{\includegraphics[width=0.3\textwidth]{images/dimredcomps/UMAP_gt.png}} \\
+\end{tabular} \\
+a: LLE, b: ISOMAP, c: TSNE, d: UMAP
+  \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Pipeline}
-    \begin{itemize}
-    \item Plot each line in high dimensional space % One pixel is one variable
-    \item Apply dimensional reduction % One pixel is one variable
-    \item Find Euclidean Distances 
-    \item Smaller distances mean better agreement
-    \item Best match between two sinograms \textrightarrow{} Common line!
-    \item Best scoring common lines \textrightarrow{} From the same model!
-    \end{itemize}
-    % Make this a flow chart !XXXX
+  \begin{center}\includegraphics[width=1\textwidth]{images/second_pipeline.png}
+    \end{center}
     % Include graphic of points plotted in 2d space !XXXX
 
     \pause
@@ -230,7 +259,7 @@
 \end{frame}
 
 \section{Clustering}
-\begin{frame}{Can heterogenaity be sorted by looking at common lines?}
+\begin{frame}{The data}
   % Figure of 2D representation of lines using TSNE. !XXXX
   Ground truth: Good seperatation between two classes - but discontinuous
   % Figures from update page
@@ -249,14 +278,10 @@
 \end{frame}
 
 \begin{frame}[fragile]{Pipeline}
-    \begin{itemize}
-    \item Plot each line in high dimensional space % One pixel is one variable
-    \item Apply dimensional reduction % One pixel is one variable
-    \item Find Euclidean Distances 
-    \item Smaller distances mean better agreement - Create score
-    \item Heirarchical Clustering
-    \item Cut tree to produce clusters
-    \end{itemize}
+  \begin{center}\includegraphics[width=1\textwidth]{images/third_pipeline.png}
+    \end{center}
+  %\placetextbox[north west]{0.17}{0.63}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\includegraphics[width=0.4\textwidth]{images/tree.png}}
+
 
     \pause
     Just a model left!
