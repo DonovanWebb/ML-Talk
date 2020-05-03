@@ -92,7 +92,7 @@
 \subtitle{\includegraphics[width=4cm]{images/logo_transparent.png}\\Common Lines Implied Clustering}
 \author{Donovan Webb}
 \institute{eBIC/University of Bath}
-\date{March 23rd, 2020}
+\date{}
 \titlegraphic{\includegraphics[width=3cm]{images/Diamond.png}}
 
 \AtBeginSection[]{
@@ -122,9 +122,9 @@
 \end{frame}
 \addtocounter{framenumber}{-1} % Don't count title slide
 
-\begin{frame}{Table of Contents}
-  \tableofcontents[sectionstyle=show/show, hideallsubsections]
-\end{frame}
+%% \begin{frame}{Table of Contents}
+%%   \tableofcontents[sectionstyle=show/show, hideallsubsections]
+%% \end{frame}
 
 
 \section{Single Lines}
@@ -174,7 +174,7 @@
 \end{frame}
 
 
-\begin{frame}[fragile]{Pipeline}
+\begin{frame}[fragile]{Concept's flowchart}
   \begin{center}\includegraphics[width=1\textwidth]{images/first_pipeline.png}
     \end{center}
   
@@ -183,48 +183,96 @@
 
     \vspace{1em}
     \pause
-    Slow.
-    \pause
-    Exhaustive.
-    \pause
-    Doesn't handle noise well.
+    Curse of Dimensionality.
+\end{frame}
+
+\section{Dimensional Reduction}
+
+\begin{frame}[fragile]{Dimensional Reduction - Linear (PCA)}
+  \textbf{How to display high dimensional data in lower dimensional space?}
+  \begin{center}
+  \only<1>{\hspace{0.35em}\includegraphics[width=0.7\textwidth]{images/pcavsmani/PCA2D.png}}
+  \only<2>{\includegraphics[width=0.7\textwidth]{images/pcavsmani/PCA2D1comp.png}}
+  \only<3>{\includegraphics[width=0.7\textwidth]{images/pcavsmani/PCA2D2comp.png}}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Linear vs Non-Linear - Swiss Roll} 
+                  \vspace{-1em}
+	\begin{center}
+		  \fbox{\begin{minipage}[t][0.3\textheight][t]{0.45\textwidth}
+                    \begin{center} 
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_blank_1_crop.png}
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_blank_2_crop.png}
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_blank_3_crop.png}
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_blank_4_crop.png}
+                    \end{center}
+		  \end{minipage}}
+                  %\hspace{1em}
+		  \fbox{\begin{minipage}[t][0.4\textheight][t]{0.45\textwidth}
+                    \begin{center}
+                    \only<1>{\includegraphics[width=0.65\textwidth]{images/pcavsmani/swiss_PCA_2_crop.png} \\}
+                    \only<2,3>{\includegraphics[width=0.65\textwidth]{images/pcavsmani/swiss_PCA_2_crop_arrow.png} \\}
+                    \only<1>{PCA \\
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_pca_2D_crop.png}
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_PCA_1_crop.png}}
+                    \only<2,3>{PCA \\
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_pca_2D_crop_arrow.png}
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_PCA_1_crop.png}}
+                    \end{center}
+		  \end{minipage}}
+                  ~
+		  \fbox{\begin{minipage}[t][0.40\textheight][t]{0.45\textwidth}
+                    \begin{center}
+                    \only<1,2>{\includegraphics[width=0.65\textwidth]{images/pcavsmani/swiss_UMAP_2_crop.png}\\}
+                    \only<3>{\includegraphics[width=0.65\textwidth]{images/pcavsmani/swiss_UMAP_2_crop_arrow.png}\\}
+                    \only<1,2>{UMAP \\
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_UMAP_2D_crop.png}
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_UMAP_1_crop.png}}
+                    \only<3>{UMAP \\
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_UMAP_2D_crop_arrow.png}
+                    \includegraphics[width=0.45\textwidth]{images/pcavsmani/swiss_UMAP_1_crop.png}}
+                    \end{center}
+		  \end{minipage}}
+                  ~
+		  \begin{minipage}[t][0.3\textheight][t]{0.45\textwidth}
+                    UMAP finds manifold, PCA does not
+		  \end{minipage}
+	\end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Dimensional Reduction - Linear}
-\only<1>{
-  \vspace{-1em}\begin{center}
-  \textbf{Find features - Reduce noise} \\
-  % Swiss roll explanation? !XXXX
   % Dimensional reduction can be used to lower influence of noise and try to find common features of data.
   % Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
-  % and non-linear Iso map or lle !XXXX
-  \textbf{Linear} (PCA) \\
-  \includegraphics[width=0.8\textwidth]{images/dimredcomps/PCA_sins.png}
+  \only<1>{
+  \vspace{-1em}\begin{center}
+    \textbf{Find features - Reduce noise} \\
+    \textbf{Linear} (PCA) \\
+    \includegraphics[width=0.8\textwidth]{images/dimredcomps/PCA_sins.png}
   \end{center}}
 
-\only<2>{
+  \only<2>{
   \vspace{-1em}\begin{center}
-  \textbf{Find features - Reduce noise} \\
-  % Swiss roll explanation? !XXXX
-  % Dimensional reduction can be used to lower influence of noise and try to find common features of data.
-  % Manifold learning found to improve accuracy of common lines being chosen although more computationally expensive.
-  % and non-linear Iso map or lle !XXXX
-  \textbf{Linear} (PCA) \\
-  \includegraphics[width=0.8\textwidth]{images/dimredcomps/PCA_gt.png}
-  \end{center}}
+    \textbf{Find features - Reduce noise} \\
+    \textbf{Linear} (PCA) \\
+    \includegraphics[width=0.8\textwidth]{images/dimredcomps/PCA_gt.png}
+  \end{center}
+ \placetextbox[north west]{0.04}{0.62}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\includegraphics[width=0.25\textwidth]{images/figures/no_e.png}}
+ \placetextbox[north west]{0.75}{0.62}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\includegraphics[width=0.25\textwidth]{images/figures/all_edit.png}}
+  }
 \end{frame}
 
 \begin{frame}[fragile]{Dimensional Reduction - Non-Linear} 
 	\only<1>{
 	\begin{center}
-		  \begin{minipage}{0.45\textwidth}
+		  \begin{minipage}{0.47\textwidth}
 	          LLE\\
                   \includegraphics[width=1\textwidth]{images/dimredcomps/LLE_sins.png}\\
 		  ISOMAP\\
                   \includegraphics[width=1\textwidth]{images/dimredcomps/ISOMAP_sins.png}\\
 		  \end{minipage}
 			~
-		  \begin{minipage}{0.45\textwidth}
+		  \begin{minipage}{0.47\textwidth}
 	          UMAP\\
                   \includegraphics[width=1\textwidth]{images/dimredcomps/UMAP_sins.png}\\
 		  TSNE\\
@@ -233,14 +281,14 @@
 	\end{center}}
         \only<2>{
 	\begin{center}
-		  \begin{minipage}{0.45\textwidth}
+		  \begin{minipage}{0.47\textwidth}
 	          LLE\\
                   \includegraphics[width=1\textwidth]{images/dimredcomps/LLE_gt.png}\\
 		  ISOMAP\\
                   \includegraphics[width=1\textwidth]{images/dimredcomps/ISOMAP_gt.png}\\
 		  \end{minipage}
 			~
-		  \begin{minipage}{0.45\textwidth}
+		  \begin{minipage}{0.47\textwidth}
 	          UMAP\\
                   \includegraphics[width=1\textwidth]{images/dimredcomps/UMAP_gt.png}\\
 		  TSNE\\
@@ -249,10 +297,56 @@
 	\end{center}}
 \end{frame}
 
-\begin{frame}[fragile]{Pipeline}
+\begin{frame}[fragile]{UMAP} 
+	\begin{center}
+          \vspace{-1em}
+            \includegraphics[width=0.15\textwidth]{images/projSNR1.png}
+            \includegraphics[width=0.15\textwidth]{images/projSNR1_2.png}
+            \includegraphics[width=0.15\textwidth]{images/projSNR1_3.png}
+            \includegraphics[width=0.15\textwidth]{images/projSNR1_4.png}
+		  \begin{minipage}{0.47\textwidth}
+	          SNR 1\\
+                  \includegraphics[width=0.9\textwidth]{images/dimredcomps/UMAP_gt_snr1.png}\\
+		  SNR 1/3\\
+                  \includegraphics[width=0.9\textwidth]{images/dimredcomps/UMAP_gt_snr1_3.png}\\
+		  \end{minipage}
+			~
+		  \begin{minipage}{0.47\textwidth}
+	          SNR 1/2\\
+                  \includegraphics[width=0.9\textwidth]{images/dimredcomps/UMAP_gt_snr1_2.png}\\
+		  SNR 1/4\\
+                  \includegraphics[width=0.9\textwidth]{images/dimredcomps/UMAP_gt_snr1_4.png}\\
+		  \end{minipage}
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{TSNE} 
+	\begin{center}
+          \vspace{-1em}
+            \includegraphics[width=0.15\textwidth]{images/projSNR1.png}
+            \includegraphics[width=0.15\textwidth]{images/projSNR1_2.png}
+            \includegraphics[width=0.15\textwidth]{images/projSNR1_3.png}
+            \includegraphics[width=0.15\textwidth]{images/projSNR1_4.png}
+		  \begin{minipage}{0.47\textwidth}
+	          SNR 1\\
+                  \includegraphics[width=0.9\textwidth]{images/dimredcomps/TSNE_gt_snr1.png}\\
+		  SNR 1/3\\
+                  \includegraphics[width=0.9\textwidth]{images/dimredcomps/TSNE_gt_snr1_3.png}\\
+		  \end{minipage}
+			~
+		  \begin{minipage}{0.47\textwidth}
+	          SNR 1/2\\
+                  \includegraphics[width=0.9\textwidth]{images/dimredcomps/TSNE_gt_snr1_2.png}\\
+		  SNR 1/4\\
+                  \includegraphics[width=0.9\textwidth]{images/dimredcomps/TSNE_gt_snr1_4.png}\\
+		  \end{minipage}
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Flowchart}
   \begin{center}\includegraphics[width=1\textwidth]{images/second_pipeline.png}
     \end{center}
-    % Include graphic of points plotted in 2d space !XXXX
+    \placetextbox[north west]{0}{0.63}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\includegraphics[width=0.7\textwidth]{images/dimredcomps/UMAP_sins.png}}
 
     \pause
     But how do we assign clusters?
@@ -260,8 +354,14 @@
 
 \section{Clustering}
 \begin{frame}{The data}
-  % Figure of 2D representation of lines using TSNE. !XXXX
-  Ground truth: Good seperatation between two classes - but discontinuous
+  \includegraphics[width=0.49\textwidth]{images/figures/TSNE_raw_cyan.png}
+  \pause
+  \includegraphics[width=0.49\textwidth]{images/figures/TSNE_gt.png}\\
+  Ground truth: Good separation between two classes - but discontinuous \\
+  \pause
+  We know which sinogram each line comes from... \\
+  Lines from one sinogram are initial clusters
+
   % Figures from update page
   %% yes, we can use the relationship between single lines from the same sinogram and from the same model.
   %% Cant use conventional clustering algorithms as cluster is not all spatially in the same place.
@@ -274,57 +374,76 @@
 \end{frame}
 
 \begin{frame}{Heirarchical clustering}
-  % Insert fig !XXXX
+  \begin{center}
+  \begin{minipage}{0.35\textwidth}
+  \includegraphics[width=1\textwidth]{images/tree_with_sins.png}
+  \end{minipage}
+  \begin{minipage}{0.55\textwidth}
+    \begin{itemize}
+        \item S1 – S5 Are Sinograms.
+        \item S1 and S2 are clustered together into C1 due to good overlap.
+        \item Continue clustering best scoring groups until one cluster remains containing all Sinograms.
+        \item Can cut tree at any point and make models with clustered projections.
+    \end{itemize}
+  \end{minipage}
+  \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Pipeline}
+\begin{frame}[fragile]{Flowchart}
   \begin{center}\includegraphics[width=1\textwidth]{images/third_pipeline.png}
     \end{center}
-  %\placetextbox[north west]{0.17}{0.63}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\includegraphics[width=0.4\textwidth]{images/tree.png}}
-
-
+    \placetextbox[north west]{0.13}{0.60}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\includegraphics[width=0.4\textwidth]{images/figures/TSNE_gt.png}}
     \pause
-    Just a model left!
+    \vspace{1em}\\Just a model left!
 \end{frame}
 
-\section{Reconstruction}
-
-\begin{frame}[fragile]{Angular recovery from 3 Common lines}
-  \textbf{Common line gives axis of rotation.}
-  Three common lines gives 2 unique solutions for 3D orientation (One mirror of other)
-  \only<1>{\begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_3_comp.png}
-    \end{center}}
-  \only<2->{\begin{center}\includegraphics[width=0.801\textwidth]{images/vectors.png}
-    \end{center}}
-  \textit{\tiny{Angular Reconstitution: A Posteriori Assignment of Projection Directions for 3d Reconstruction. Van Heel 1987}}
-  \only<3>{\placetextbox[north west]{0.34}{0.63}{\includegraphics[width=0.4\linewidth]{images/3_line_model.png}}}
+\begin{frame}{Experiments}
+    \begin{center}
+      \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=1\textwidth]{images/model_tree.png}
+      \end{minipage}
+      \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=1\textwidth]{images/model_comp.png}
+        \pause
+        \includegraphics[width=1\textwidth]{images/exp_plots.png}
+      \end{minipage}
+    \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Eigenvector Relaxation}
-  \small
-  \textbf{Aim: Given all common lines $c$ for projections $P$, assign Rotation matrices $R$ for each $P$ to give greatest consensus volume.} \\
-  \vspace{0.5em}
-  \includegraphics[width=0.45\textwidth]{images/radon_ft.png}
-\vspace{-3.7em}
-  \hspace*{3.2em}\vbox{\tiny{$$\hspace{15em}cij~=~(cos(\theta_{ij}),sin(\theta_{ij}),0),~cji~=~(cos(\theta_{ji}),sin(\theta_{ji}),0)~\quad~(1)$$}}
+%% \section{Reconstruction}
 
-  \small
- \placetextbox[north west]{0.56}{0.45}{
-  \includegraphics[width=0.55\textwidth]{images/eighist.png}} \\
-  \vspace{1em}
-  \hspace*{-2em}\vbox{$$max\sum_{i\ne j} R_ic_{ij} \cdot R_jc_{ji} \quad (2)$$}
-  Maths*! Make large $(2N \times 2N)$ symmetric \\ matrix $S$. Can recover $R$ for each $P$ from \\ top 3 eigenvectors of $S$ that maximise (2)! \\
-  
-  \vspace{2em}
+%% \begin{frame}[fragile]{Angular recovery from 3 Common lines}
+%%   \textbf{Common line gives axis of rotation.}
+%%   Three common lines gives 2 unique solutions for 3D orientation (One mirror of other)
+%%   \only<1>{\begin{center}\includegraphics[width=0.45\textwidth]{images/Sinogram_3_comp.png}
+%%     \end{center}}
+%%   \only<2->{\begin{center}\includegraphics[width=0.801\textwidth]{images/vectors.png}
+%%     \end{center}}
+%%   \textit{\tiny{Angular Reconstitution: A Posteriori Assignment of Projection Directions for 3d Reconstruction. Van Heel 1987}}
+%%   \only<3>{\placetextbox[north west]{0.34}{0.63}{\includegraphics[width=0.4\linewidth]{images/3_line_model.png}}}
+%% \end{frame}
 
-  \textit{\scalebox{0.5}{*Three Dimensional Structure Determination from Common Lines in Cryo-EM by Eigenvectors and Semidefinite Programming. A.Singer and Y.Shkolnisky}}
-\end{frame}
+%% \begin{frame}[fragile]{Eigenvector Relaxation}
+%%   \small
+%%   \textbf{Aim: Given all common lines $c$ for projections $P$, assign Rotation matrices $R$ for each $P$ to give greatest consensus volume.}
+%%   \begin{center}
+%%     \begin{minipage}{0.45\textwidth}
+%%         \includegraphics[width=\textwidth]{images/radon_ft.png}
+%%         Maths*! Make large $(2N \times 2N)$ symmetric matrix $S$. Can recover $R$ for each $P$ from top 3 eigenvalues of $S$ that maximise consistency function!
+%%     \end{minipage}
+%%     ~~~
+%%     \begin{minipage}{0.45\textwidth}
+%%       %% \tiny{$$cij~=~(cos(\theta_{ij}),sin(\theta_{ij}),0),$$\\$$~cji~=~(cos(\theta_{ji}),sin(\theta_{ji}),0)~\quad~(1)$$}
+%%       %%   $$max\sum_{i\ne j} R_ic_{ij} \cdot R_jc_{ji} \quad (2)$$
+%%         \includegraphics[width=\textwidth]{images/eighist.png}
+%%     \end{minipage}
 
-\section{Full Pipeline}
-\begin{frame}{}
-  A full pipeline of the procedure.
-  2d projs > 2d sins > 1d lines > TSNE > agglo > clusters > split into sep datasets > find common lines > eigenvector relaxation > Models
-\end{frame}
+%%   \end{center}
+
+%%   \vspace{2em}
+%%   \textit{\scalebox{0.5}{*Three Dimensional Structure Determination from Common Lines in Cryo-EM by Eigenvectors and Semidefinite Programming. A.Singer and Y.Shkolnisky}}
+%% \end{frame}
+
 
 \end{document}
 
