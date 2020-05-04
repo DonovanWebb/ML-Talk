@@ -125,15 +125,28 @@
 %% \begin{frame}{Table of Contents}
 %%   \tableofcontents[sectionstyle=show/show, hideallsubsections]
 %% \end{frame}
+%!XXXX Intro!
 
+\section{Common Lines}
 
-\section{Single Lines}
-
-\begin{frame}[fragile]{The Radon Transform}
- \begin{center}\includegraphics[width=0.9\textwidth]{images/Sinogram_Proj1.png}
+\begin{frame}[fragile]{A Shared Single Line}
+ \begin{center}\includegraphics[width=0.6\textwidth]{images/lines_one_models.png}
     \end{center}
-\vspace{-1em}
 \end{frame}
+
+\begin{frame}[fragile]{Common Lines}
+  \textbf{Two projections of the same 3D volume share at least one common line in the Radon transform}
+ \begin{center}\includegraphics[width=0.85\textwidth]{images/common_line.png}
+    \end{center}
+ \begin{center}\includegraphics[width=0.35\textwidth]{images/3D_model.png}
+    \end{center}
+\end{frame}
+
+%% \begin{frame}[fragile]{The Radon Transform}
+%%  \begin{center}\includegraphics[width=0.9\textwidth]{images/Sinogram_Proj1.png}
+%%     \end{center}
+%% \vspace{-1em}
+%% \end{frame}
 
 \begin{frame}[fragile]{The Radon Transform}
  \only<1>{\begin{center}\includegraphics[width=0.85\textwidth]{images/sino_ani/sino_make_fr1.png}
@@ -146,15 +159,23 @@
     \end{center}}
 \end{frame}
 
-\begin{frame}[fragile]{Common Lines}
-  \textbf{Two projections of the same 3D volume share at least one common line in the Radon transform}
- \begin{center}\includegraphics[width=0.85\textwidth]{images/common_line.png}
-    \end{center}
- \begin{center}\includegraphics[width=0.35\textwidth]{images/3D_model.png}
-    \end{center}
+\begin{frame}{The Problem}
+  \textbf{Can projections of different models be separated based on similarities and differences between common lines?}
+  \begin{center}
+    \begin{minipage}{0.45\textwidth}
+      \includegraphics[width=0.9\textwidth]{images/proj_sin_lin.png}
+    \end{minipage}
+    ~
+    \begin{minipage}{0.45\textwidth}
+      \begin{center}
+        \includegraphics[height=0.4\textheight]{images/figures/no_e.png}
+        \includegraphics[height=0.4\textheight]{images/figures/all_edit.png}
+      \end{center}
+    \end{minipage}
+  \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Common Lines}
+\begin{frame}[fragile]{Common Lines Between Different Models}
   \centering\textbf{What about two different 3D volumes?}
  \begin{center}\includegraphics[width=0.85\textwidth]{images/lines_two_models.png}
     \end{center}
@@ -164,8 +185,17 @@
 
 \begin{frame}[fragile]{Sinogram Cross Correlation}
   \centering\textbf{Finding the common line between two sinograms}
-  \begin{center}\includegraphics[width=0.7\textwidth]{images/2sin_comp.png}
-    \end{center}
+  \only<1>
+    {\begin{center}
+      \includegraphics[width=0.4\textwidth]{images/2sin_comp.png}
+      \includegraphics[width=0.4\textwidth]{images/self_correl.png}
+    \end{center}}
+  \only<2,3,4>{
+    \begin{center}
+      \includegraphics[width=0.4\textwidth]{images/2sin_comp_peaks.png}
+      \includegraphics[width=0.4\textwidth]{images/self_correl.png}
+    \end{center}}
+  \pause
   \pause
   \centering\textbf{But what about N sinograms?} \\
   \pause
@@ -178,8 +208,12 @@
   \begin{center}\includegraphics[width=1\textwidth]{images/first_pipeline.png}
     \end{center}
   
-    \pause
-    \placetextbox[north west]{0}{0.63}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\includegraphics[width=0.7\textwidth]{images/no_dimred.png}}
+    \placetextbox[north west]{0.05}{0.60}{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.5pt}\begin{minipage}{0.6\textwidth}
+      \includegraphics[width=0.3\textwidth]{images/proj_sin_lin.png}
+      \includegraphics[width=0.65\textwidth]{images/no_dimred.png} 
+      \small{15 projections - 2 models - 75 dimensional space}
+      \end{minipage}
+    }
 
     \vspace{1em}
     \pause
@@ -443,6 +477,23 @@
 %%   \vspace{2em}
 %%   \textit{\scalebox{0.5}{*Three Dimensional Structure Determination from Common Lines in Cryo-EM by Eigenvectors and Semidefinite Programming. A.Singer and Y.Shkolnisky}}
 %% \end{frame}
+
+\begin{frame}{Any Questions?}
+    \begin{center}
+      \begin{minipage}{0.45\textwidth}
+        Thanks to eBIC, \\
+        Yuriy Chaban - The Concept \\
+        \& \\
+        CCPEM \\
+      \end{minipage}
+      \begin{minipage}{0.45\textwidth}
+        \begin{center}
+          \includegraphics[height=0.4\textheight]{images/proj_sin_lin.png}
+          \includegraphics[height=0.4\textheight]{images/UMAP_heart.png}
+        \end{center}
+      \end{minipage}
+    \end{center}
+\end{frame}
 
 
 \end{document}

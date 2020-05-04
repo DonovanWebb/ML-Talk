@@ -1,16 +1,16 @@
 import mrcfile as mrc
 import matplotlib.pyplot as plt
 import numpy as np
-from skimage.transform import radon, rescale
+from skimage.transform import radon
 
 
 
-m0 = '/dls/ebic/data/staff-scratch/Donovan/3Drepro/Radon/NN/proj_5angles/i0/0.mrc'
-m1 = '/dls/ebic/data/staff-scratch/Donovan/3Drepro/Radon/NN/proj_5angles/i0/1.mrc'
+m0 = '/home/lexi/Documents/Diamond/CLIC_refac/test_data/mixed/0.mrc'
+m1 = '/home/lexi/Documents/Diamond/CLIC_refac/test_data/mixed/1.mrc'
 with mrc.open(m0) as f:
-    im0 = f.data
-with mrc.open(m1) as f:
-    im1 = f.data
+    im0 = np.array(f.data)
+with mrc.open(m0) as f:
+    im1 = np.array(f.data)
 
 def sino(im):
     theta = np.linspace(0., 360., 360, endpoint=False)
