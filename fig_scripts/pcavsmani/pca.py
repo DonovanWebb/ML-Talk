@@ -1,0 +1,95 @@
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import random
+import numpy as np
+
+
+def gauss_2d(mu, sigma):
+    # x = random.gauss(mu, sigma, size=10)
+    # y = random.gauss(mu, sigma, size=10)
+    p = np.random.multivariate_normal([1,1], [[15,3],[1,1]], 10000)
+    print(p.shape)
+    return p
+
+def swiss():
+    # set parameters
+    length_phi = 20   #length of swiss roll in angular direction
+    length_Z = 15     #length of swiss roll in z direction
+    sigma = 0.01       #noise strength
+    m = 5000         #number of samples
+
+    # create dataset
+    phi = length_phi*np.random.rand(m)
+    xi = np.random.rand(m)
+    Z = length_Z*np.random.rand(m)
+    X = 1./6*(phi + sigma*xi)*np.sin(phi)
+    Y = 1./6*(phi + sigma*xi)*np.cos(phi)
+
+    swiss_roll = np.array([X, Y, Z]).transpose()
+    # check that we have the right shape
+    print(swiss_roll.shape)
+    return swiss_roll
+
+
+def plot_swiss(roll, x='purple'):
+    Cen3D = plt.figure()
+    ax = Cen3D.add_subplot(111, projection='3d')
+    ax.scatter(roll[:,0],roll[:,1],roll[:,2], c=x, cmap='inferno', edgecolors='black')  #, alpha=0.7)
+    plt.xticks([])
+    plt.yticks([])
+    plt.show()
+
+
+def plot(x, y):
+    plt.figure(1)
+    plt.scatter(x, y, c=x, cmap='inferno')
+    plt.xticks([])
+    plt.yticks([])
+    plt.show()
+
+def pca(roll):
+    from sklearn.decomposition import PCA
+    model = PCA(n_components=2)
+    trans = model.fit_transform(roll)
+    return trans
+
+
+def isomap(roll):
+    from sklearn.manifold import Isomap
+    model = Isomap(n_components=2)
+    trans = model.fit_transform(roll)
+    return trans
+
+
+def lle(roll):
+    from sklearn.manifold import LocallyLinearEmbedding as LLE
+    model = LLE(n_components=2)
+    trans = model.fit_transform(roll)
+    return trans
+
+
+def umap(roll):
+    import umap
+    model = umap.UMAP(n_components=2)
+    trans = model.fit_transform(roll)
+    return trans
+
+
+# p = gauss_2d(1, 1)
+# x = p[:, 0]
+# y = p[:, 1]
+# plot(x, y)
+roll = swiss()
+plot_swiss(roll)
+
+trans = pca(roll)
+x = trans[:,0]
+y = trans[:,1]
+plot(y,x)
+plot_swiss(roll, y)
+
+trans = umap(roll)
+x = trans[:,0]
+y = trans[:,1]
+plot(x,y)
+plot_swiss(roll, x)
